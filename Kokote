@@ -1,0 +1,67 @@
+-- Roblox Studio - Simulace otevření vejce s animací, částicemi a zvukem
+
+local function createEgg()
+	local egg = Instance.new("Part")
+	egg.Name = "HugeEgg"
+	egg.Shape = Enum.PartType.Ball
+	egg.Size = Vector3.new(2, 3, 2)
+	egg.Position = Vector3.new(0, 5, 0)
+	egg.BrickColor = BrickColor.new("Bright yellow")
+	egg.Anchored = true
+	egg.Parent = workspace
+
+	-- Vizuální záře
+	local light = Instance.new("PointLight", egg)
+	light.Color = Color3.new(1, 1, 0.5)
+	light.Range = 10
+	light.Brightness = 5
+
+	return egg
+end
+
+local function createHugePet()
+	local pet = Instance.new("Part")
+	pet.Size = Vector3.new(3, 3, 3)
+	pet.Position = Vector3.new(0, 5, 0)
+	pet.BrickColor = BrickColor.new("Bright red")
+	pet.Anchored = true
+	pet.Name = "Huge Cat"
+	pet.Shape = Enum.PartType.Block
+	pet.Parent = workspace
+
+	-- Částicový efekt
+	local particles = Instance.new("ParticleEmitter", pet)
+	particles.Texture = "rbxassetid://243660364" -- hvězdičky
+	particles.Rate = 20
+	particles.Lifetime = NumberRange.new(1)
+	particles.Speed = NumberRange.new(2)
+	particles.Color = ColorSequence.new(Color3.new(1, 1, 0))
+
+	-- Billboard text
+	local billboard = Instance.new("BillboardGui", pet)
+	billboard.Size = UDim2.new(0, 200, 0, 50)
+	billboard.StudsOffset = Vector3.new(0, 3, 0)
+	billboard.AlwaysOnTop = true
+
+	local label = Instance.new("TextLabel", billboard)
+	label.Size = UDim2.new(1, 0, 1, 0)
+	label.BackgroundTransparency = 1
+	label.Text = "Získal jsi Huge Cat!"
+	label.TextColor3 = Color3.fromRGB(255, 215, 0)
+	label.TextStrokeTransparency = 0
+	label.TextScaled = true
+
+	-- Zvukový efekt
+	local sound = Instance.new("Sound", pet)
+	sound.SoundId = "rbxassetid://138186576" -- Vítězný zvuk
+	sound.Volume = 1
+	sound:Play()
+end
+
+-- Simulace otevření
+local egg = createEgg()
+
+wait(2) -- Čas před otevřením
+
+egg:Destroy()
+createHugePet()
